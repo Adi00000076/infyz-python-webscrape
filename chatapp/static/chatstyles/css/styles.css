@@ -1,0 +1,114 @@
+/* styles.css */
+
+#chat-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+#messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 238px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+#messages li {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+#messages li img {
+    margin-right: 10px;
+    width: 24px;  /* Adjust the width as needed */
+    height: 24px; /* Adjust the height as needed */
+    object-fit: cover;
+}
+
+#messages li.user {
+    background-color: #d1e7ff;
+    text-align: right;
+}
+
+#messages li.assistant {
+    background-color: #c7c6c6;
+    text-align: left;
+}
+
+#messages li.typing {
+    background-color: #f0f0f0;
+    text-align: center; /* Adjust text alignment for typing messages */
+    font-style: italic;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#chat-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center align items vertically */
+    margin-top: 20px;
+}
+
+#message {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+
+    
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.logo-type {
+    border-radius: 8px; /* Adjust the border radius as needed */
+    width: 150px; /* Adjust the width */
+    height: 50px; /* Adjust the height */
+}
+
+span {
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: Arial;
+    line-height: 14px;
+    margin-right: 10px;
+}
+
+/* Adjust background colors based on messages */
+#messages li.user span,
+#messages li.assistant span {
+    background-color: inherit; /* Inherits background color from parent li */
+    display: inline-block; /* Ensures text adjusts its width automatically */
+    padding: 8px; /* Adjust padding for better readability */
+    border-radius: 5px; /* Optional: Adjust border radius for text elements */
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infyz Website Information</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+
+        header {
+            background: #3b4a6b;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: #3b4a6b;
+        }
+
+        .search-results, .found-images {
+            margin-bottom: 2rem;
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: #3b4a6b;
+        }
+
+        .fade-in-left {
+            animation: fadeInLeftToRight 0.5s ease-out;
+        }
+
+        @keyframes fadeInLeftToRight {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        .dialog-box {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        .dialog-box.show {
+            display: block;
+        }
+
+        .more-content {
+            display: none;
+        }
+
+        .show-more-button, .show-less-button {
+            cursor: pointer;
+            color: #28a745;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .show-more-button:hover, .show-less-button:hover {
+            text-decoration: underline;
+            color: #1e7e34;
+        }
+
+        img {
+            border: 2px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        form input[type="text"] {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        form input[type="text"]:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+
+        form button {
+            padding: 0.3rem 0.7rem;
+            border: none;
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+
+        form button:hover {
+            background: #218838;
+        }
+
+        p {
+            margin: 1rem 0;
+        }
+
+        .container {
+            padding: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            font-size: 1rem;
+        }
+
+        .contact-info i {
+            margin-right: 0.5rem;
+        }
+
+        .contact-info a {
+            color: #3b4a6b;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Infyz Website Information</h1>
+    </header>
+    <main class="container mt-4">
+        <form id="search-form" method="POST" class="form-inline justify-content-center">
+            {% csrf_token %}
+            <input type="text" name="query" id="search-input" class="form-control mr-2" placeholder="Enter search query" required>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <div id="loading">Loading...</div>
+
+        {% if response %}
+            <div class="search-results fade-in-left">
+
+                <p id="result-text" class="fade-in">
+                    <!-- Placeholder for search results -->
+                    {% if response %}
+                        {{ response|safe }}
+                    {% endif %}
+                </p>
+                
+            </div>
+        {% endif %}
+
+        {% if no_results %}
+            <div class="alert alert-warning">No results found for your query.</div>
+        {% endif %}
+
+        <div class="contact-info">
+            <i class="fas fa-phone"></i> <a href="tel:+1234567890">+1 234 567 890</a>
+            <i class="fas fa-envelope ml-3"></i> <a href="mailto:info@infyz.com">info@infyz.com</a>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Focus input script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('search-input').focus();
+
+            const resultText = document.getElementById('result-text');
+            const showMoreButton = document.getElementById('show-more');
+            const showLessButton = document.getElementById('show-less');
+
+            if (resultText && resultText.innerHTML.trim() !== '') {
+                const fullText = resultText.innerHTML;
+                const maxWords = 250;
+                const words = fullText.split(' ');
+
+                if (words.length > maxWords) {
+                    const previewText = words.slice(0, maxWords).join(' ') + '...';
+                    resultText.innerHTML = previewText;
+
+                    showMoreButton.style.display = 'inline';
+                    showLessButton.style.display = 'none';
+
+                    showMoreButton.addEventListener('click', function() {
+                        resultText.innerHTML = fullText;
+                        showMoreButton.style.display = 'none';
+                        showLessButton.style.display = 'inline';
+                    });
+
+                    showLessButton.addEventListener('click', function() {
+                        resultText.innerHTML = previewText;
+                        showMoreButton.style.display = 'inline';
+                        showLessButton.style.display = 'none';
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

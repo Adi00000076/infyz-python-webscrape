@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Application</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'chatstyles/css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="chat-container">
+        <ul id="messages">
+        
+        </ul>
+   
+    <form id="chat-form" method="post">
+        {% csrf_token %}
+       <div class="twoButtons">
+        <input type="text" id="message" name="message" autocomplete="off" placeholder="Type your message ..." />
+        <button type="submit">Send</button>
+       </div>
+    </form>
+</div>
+    <script src="{% static 'chatstyles/js/chatlogic.js' %}"></script>
+</body>
+</html>
